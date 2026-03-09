@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Capability vs Adoption Velocity - Radar Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000000;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            background: #0a0a0a;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(255, 140, 0, 0.15);
+            border: 1px solid #1a1a1a;
+        }
+        h1 {
+            text-align: center;
+            color: #FF8C00;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 140, 0, 0.5);
+        }
+        .subtitle {
+            text-align: center;
+            color: #c0c0c0;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 800px;
+            margin: 30px 0;
+            background: #050505;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #2a2a2a;
+        }
+        .legend-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1em;
+            padding: 12px 24px;
+            background: #0f0f0f;
+            border-radius: 8px;
+            border: 1px solid #2a2a2a;
+        }
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px currentColor;
+        }
+        .legend-color.capability {
+            background: linear-gradient(135deg, #FF8C00, #FFD700);
+        }
+        .legend-color.adoption {
+            background: #FF8C00;
+        }
+        .insights {
+            margin-top: 40px;
+            padding: 30px;
+            background: #0a0a0a;
+            border-radius: 12px;
+            border-left: 4px solid #FFD700;
+            border: 1px solid #2a2a2a;
+        }
+        .insights h2 {
+            color: #FFD700;
+            margin-top: 0;
+            font-size: 1.8em;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+        .insights ul {
+            line-height: 1.8;
+            color: #c0c0c0;
+            font-size: 1.05em;
+        }
+        .insights li {
+            margin-bottom: 12px;
+        }
+        .insights strong {
+            color: #FF8C00;
+            font-weight: 600;
+        }
+        .gap-highlight {
+            color: #FFD700;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #2a2a2a;
+            color: #808080;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI Capability-Adoption Gap Analysis</h1>
+        <p class="subtitle">Technical Capability vs. Real-World Implementation Across 15 Occupational Categories</p>
+        
+        <div class="chart-wrapper">
+            <canvas id="radarChart"></canvas>
+        </div>
+        
+        <div class="legend-container">
+            <div class="legend-item">
+                <div class="legend-color capability"></div>
+                <span><strong>AI Capability Score (0-100)</strong> - Technical capability to perform core tasks</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color adoption"></div>
+                <span><strong>Adoption Velocity Score (0-100)</strong> - Actual implementation rate</span>
+            </div>
+        </div>
+        
+        <div class="insights">
+            <h2>🔍 Key Insights: The Capability-Adoption Chasm</h2>
+            <ul>
+                <li><strong>Largest Gaps (Highest Transformation Risk):</strong>
+                    <ul>
+                        <li><span class="gap-highlight">Office & Administrative:</span> 90 capability / 35 adoption = <span class="gap-highlight">55-point gap</span></li>
+                        <li><span class="gap-highlight">Healthcare (Administrative):</span> 75 capability / 25 adoption = <span class="gap-highlight">50-point gap</span></li>
+                        <li><span class="gap-highlight">Legal Occupations:</span> 85 capability / 38 adoption = <span class="gap-highlight">47-point gap</span></li>
+                    </ul>
+                </li>
+                <li><strong>Fastest Adopters:</strong> Computer & Mathematical (75% adoption), Sales (65%), Customer Service (62%)</li>
+                <li><strong>The Pattern:</strong> White-collar, knowledge work shows highest capability but variable adoption rates</li>
+                <li><strong>Lower Risk (For Now):</strong> Physical Labor (25/15), Personal Care (30/20) - but robotics advancing</li>
+                <li><strong>Critical Finding:</strong> <span class="gap-highlight">Every occupation shows a capability-adoption gap</span>, indicating widespread transformation is technically feasible but not yet deployed</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Data Sources:</strong> Anthropic Research (2026), Yale Budget Lab, U.S. Census Bureau ABS (2023-2025), BLS Projections (2024-2034)</p>
+            <p><em>Capability scores based on technical feasibility assessments; Adoption scores incorporate current usage data, barrier analysis, and deployment velocity</em></p>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('radarChart').getContext('2d');
+        
+        const data = {
+            labels: [
+                'Computer & Math',
+                'Business & Finance',
+                'Sales',
+                'Customer Service',
+                'Office & Admin',
+                'Legal',
+                'Healthcare (Admin)',
+                'Education',
+                'Arts & Media',
+                'Management',
+                'Engineering',
+                'Life/Physical Sci',
+                'Transportation',
+                'Personal Care',
+                'Physical Labor'
+            ],
+            datasets: [
+                {
+                    label: 'AI Capability Score',
+                    data: [94, 88, 82, 85, 90, 85, 75, 68, 78, 70, 72, 65, 35, 30, 25],
+                    backgroundColor: 'rgba(255, 215, 0, 0.25)',
+                    borderColor: '#FFD700',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#FFD700',
+                    pointBorderColor: '#000',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointHoverBackgroundColor: '#FFD700',
+                    pointHoverBorderColor: '#FFF',
+                    pointHoverBorderWidth: 3
+                },
+                {
+                    label: 'Adoption Velocity Score',
+                    data: [75, 52, 65, 62, 35, 38, 25, 45, 58, 45, 48, 40, 20, 20, 15],
+                    backgroundColor: 'rgba(255, 140, 0, 0.3)',
+                    borderColor: '#FF8C00',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#FF8C00',
+                    pointBorderColor: '#000',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointHoverBackgroundColor: '#FF8C00',
+                    pointHoverBorderColor: '#FFF',
+                    pointHoverBorderWidth: 3
+                }
+            ]
+        };
+
+        const config = {
+            type: 'radar',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        min: 0,
+                        max: 100,
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 20,
+                            color: '#a0a0a0',
+                            backdropColor: 'transparent',
+                            font: {
+                                size: 14,
+                                weight: '500'
+                            }
+                        },
+                        grid: {
+                            color: '#404040',
+                            lineWidth: 1.5
+                        },
+                        angleLines: {
+                            color: '#404040',
+                            lineWidth: 1.5
+                        },
+                        pointLabels: {
+                            color: '#c0c0c0',
+                            font: {
+                                size: 13,
+                                weight: '600'
+                            },
+                            padding: 15
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                        titleColor: '#FFD700',
+                        bodyColor: '#e0e0e0',
+                        borderColor: '#404040',
+                        borderWidth: 1,
+                        padding: 12,
+                        titleFont: {
+                            size: 15,
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            size: 13
+                        },
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += context.parsed.r + '/100';
+                                
+                                if (context.datasetIndex === 0) {
+                                    const capabilityScore = context.parsed.r;
+                                    const adoptionScore = context.chart.data.datasets[1].data[context.dataIndex];
+                                    const gap = capabilityScore - adoptionScore;
+                                    return [
+                                        label,
+                                        `Adoption: ${adoptionScore}/100`,
+                                        `Gap: ${gap} points`
+                                    ];
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'point'
+                }
+            }
+        };
+
+        new Chart(ctx, config);
+    </script>
+</body>
+</html>
